@@ -28,20 +28,7 @@ final class TemporaryFileResourceTest extends TestCase
     public function testFileDeletedOnFatalError(): void
     {
         $file = $this->createTempFile();
-        $process = new PhpProcess(sprintf(
-            <<<'TEXT'
-                <?php
-                
-                require_once('%s');
-                
-                $resource = new \%s('%s');
-                
-                trigger_error('Fatal error!', E_USER_ERROR);
-                TEXT,
-            __DIR__.'/../vendor/autoload.php',
-            TemporaryFileResource::class,
-            $file
-        ));
+        $process = new PhpProcess(sprintf(file_get_contents(__DIR__.'/fatal_error.php'), $file));
 
         $process->run();
 
