@@ -11,7 +11,6 @@ use function PHPUnit\Framework\assertFileDoesNotExist;
 /**
  * @internal
  * @covers \PHPPoint\HowToRegisterAndTestShutdownFunctions\TemporaryFileResource
- * @group unit
  */
 final class TemporaryFileResourceTest extends TestCase
 {
