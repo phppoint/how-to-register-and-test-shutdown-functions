@@ -22,7 +22,7 @@ final class TemporaryFileResource
         $this->delete();
     }
 
-    public function delete(): void
+    private function delete(): void
     {
         @unlink($this->file);
     }
