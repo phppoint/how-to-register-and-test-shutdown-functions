@@ -7,6 +7,7 @@ namespace PHPPoint\HowToRegisterAndTestShutdownFunctions;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\PhpProcess;
 use function PHPUnit\Framework\assertFileDoesNotExist;
+use function PHPUnit\Framework\assertStringContainsString;
 
 /**
  * @internal
@@ -27,10 +28,15 @@ final class TemporaryFileResourceTest extends TestCase
     public function testFileDeletedOnFatalError(): void
     {
         $file = $this->createTempFile();
-        $process = new PhpProcess(sprintf(file_get_contents(__DIR__.'/fatal_error.php'), $file));
+        $process = new PhpProcess(
+            file_get_contents(__DIR__.'/fatal_error.php'),
+            __DIR__,
+            ['TEMP_FILE' => $file]
+        );
 
         $process->run();
 
+        assertStringContainsString('Fatal error: Fatal error!', $process->getOutput());
         assertFileDoesNotExist($file);
     }
 
