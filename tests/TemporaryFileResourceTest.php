@@ -12,6 +12,7 @@ use function PHPUnit\Framework\assertStringContainsString;
 /**
  * @internal
  * @covers \PHPPoint\HowToRegisterAndTestShutdownFunctions\TemporaryFileResource
+ * @group integration
  */
 final class TemporaryFileResourceTest extends TestCase
 {
